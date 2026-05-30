@@ -10,32 +10,40 @@ const config: Config = {
     extend: {
       // ── Design tokens ────────────────────────────────
       colors: {
+        // ── Brand DNA palette ───────────────────────────
+        // Void Black  #0A0A0A — primary background
+        // Carbon      #1C1C1E — elevated surfaces / cards
+        // Graphite    #2E2E32 — borders, dividers
+        // Cold Silver #C8C4BC — body copy, secondary text
+        // Raw Platinum #E8E4DC — headlines, logo, single precious accent
+        // Mid         #555550 — muted labels on dark surfaces
+        // Dim         #3A3A3E — very muted borders
         bg: {
-          DEFAULT:   '#0A0A0A',
-          secondary: '#111111',
-          tertiary:  '#161616',
+          DEFAULT:   '#0A0A0A',   // Void Black
+          secondary: '#1C1C1E',   // Carbon
+          tertiary:  '#2E2E32',   // Graphite
         },
         fg: {
-          DEFAULT: '#F0EDE8',
-          muted:   '#8A8580',
-          subtle:  '#3A3835',
+          DEFAULT: '#E8E4DC',     // Raw Platinum — headlines
+          muted:   '#C8C4BC',     // Cold Silver — body copy
+          subtle:  '#555550',     // Mid — muted labels
         },
         accent: {
-          DEFAULT: '#C9A97A',
-          dark:    '#A88552',
-          light:   '#DFC49C',
-          glow:    'rgba(201,169,122,0.12)',
+          DEFAULT: '#E8E4DC',     // Raw Platinum — use once per composition
+          light:   '#C8C4BC',     // Cold Silver
+          glow:    'rgba(232,228,220,0.06)',
         },
         border: {
-          DEFAULT: '#1C1C1C',
-          light:   '#262626',
-          accent:  'rgba(201,169,122,0.22)',
+          DEFAULT: '#2E2E32',     // Graphite
+          light:   '#3A3A3E',     // Dim
+          accent:  'rgba(232,228,220,0.15)',
         },
       },
-      // ── Typography ───────────────────────────────────
+      // ── Typography — Brand DNA ───────────────────────
       fontFamily: {
-        display: ['var(--font-instrument)', 'Georgia', 'serif'],
-        sans:    ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-cormorant)', 'Georgia', 'serif'],
+        narrow:  ['var(--font-archivo-narrow)', 'system-ui', 'sans-serif'],
+        sans:    ['var(--font-archivo)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         // Fluid display scale

@@ -27,7 +27,7 @@ function Stars({ count }: { count: number }) {
   return (
     <div className="flex gap-1" aria-label={`${count} out of 5 stars`} role="img">
       {Array.from({ length: count }).map((_, i) => (
-        <svg key={i} width="11" height="11" viewBox="0 0 11 11" fill="#C9A97A" aria-hidden>
+        <svg key={i} width="11" height="11" viewBox="0 0 11 11" fill="#C8C4BC" aria-hidden>
           <path d="M5.5 0L7 3.5l3.8.6-2.8 2.7.7 3.8L5.5 8.8 2.3 10.6l.7-3.8L.2 4.1l3.8-.6z"/>
         </svg>
       ))}

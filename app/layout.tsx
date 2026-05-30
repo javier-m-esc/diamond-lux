@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DM_Sans, Instrument_Serif } from 'next/font/google';
+import { Cormorant_Garamond, Archivo, Archivo_Narrow } from 'next/font/google';
 import './globals.css';
 
 import { LenisProvider } from '@/components/providers/LenisProvider';
@@ -7,21 +7,29 @@ import { CustomCursor }  from '@/components/cursor/CustomCursor';
 import Navbar            from '@/components/layout/Navbar';
 import Footer            from '@/components/layout/Footer';
 
-// ── Fonts ────────────────────────────────────────────────────────────────────
-// DM Sans: body, UI, labels, buttons — clean geometric grotesque
-const dmSans = DM_Sans({
+// ── Fonts — Brand DNA ────────────────────────────────────────────────────────
+// Cormorant Garamond: display headlines — hair-thin strokes, editorial luxury
+const cormorantGaramond = Cormorant_Garamond({
   subsets:  ['latin'],
-  weight:   ['300', '400', '500', '700'],
-  variable: '--font-dm-sans',
+  weight:   ['300', '400', '600'],
+  style:    ['normal', 'italic'],
+  variable: '--font-cormorant',
   display:  'swap',
 });
 
-// Instrument Serif: hero display text — precise editorial serif
-const instrumentSerif = Instrument_Serif({
+// Archivo Narrow: labels, eyebrows, nav — industrial, wide-tracked
+const archivNarrow = Archivo_Narrow({
   subsets:  ['latin'],
-  weight:   '400',
-  style:    ['normal', 'italic'],
-  variable: '--font-instrument',
+  weight:   ['400', '500', '600'],
+  variable: '--font-archivo-narrow',
+  display:  'swap',
+});
+
+// Archivo: body copy — light, generous line-height
+const archivo = Archivo({
+  subsets:  ['latin'],
+  weight:   ['300', '400', '500'],
+  variable: '--font-archivo',
   display:  'swap',
 });
 
@@ -39,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" className={`${cormorantGaramond.variable} ${archivNarrow.variable} ${archivo.variable}`}>
       <body className="bg-bg text-fg antialiased">
         <LenisProvider>
           {/* Custom cursor — hidden on touch/mobile via CSS */}

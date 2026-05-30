@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Lux — Vehicle Preservation Sydney</title>
+<meta name="description" content="Paint correction, ceramic coating, and long-term vehicle preservation for exceptional vehicles in Sydney. Not detailing — preservation.">
+<meta name="keywords" content="paint correction Sydney, ceramic coating Sydney, vehicle protection Sydney, paint restoration Sydney, car detailing Sydney">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--black:#080808;
+--charcoal:#111111;
+--graphite:#1a1a1a;
+--silver:#9a9a9a;
+--silver-light:#c8c8c8;
+--white:#f5f4f0;
+--pure-white:#ffffff;
+--accent:#b8a88a;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(8,8,8,0.95),transparent)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:0.15em;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{color:var(--silver);text-decoration:none;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:12px 28px;text-decoration:none;transition:opacity 0.3s}
+.nav-cta:hover{opacity:0.85}
+
+.hero{height:100vh;position:relative;display:flex;align-items:flex-end;padding:0 60px 80px;overflow:hidden;background:var(--black)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,#1a1510 0%,var(--black) 60%)}
+.hero-lines{position:absolute;inset:0;opacity:0.04}
+.hero-lines::before{content:'';position:absolute;top:0;left:50%;width:1px;height:100%;background:var(--white)}
+.hero-lines::after{content:'';position:absolute;top:50%;left:0;width:100%;height:1px;background:var(--white)}
+.hero-number{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-size:240px;font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(184,168,138,0.08);line-height:1;user-select:none}
+.hero-content{position:relative;max-width:680px}
+.hero-eyebrow{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);margin-bottom:24px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1.0;color:var(--white);margin-bottom:32px}
+.hero-title em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:14px;line-height:1.9;color:var(--silver);max-width:440px;margin-bottom:48px}
+.hero-actions{display:flex;gap:24px;align-items:center}
+.btn-primary{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:16px 40px;text-decoration:none;transition:opacity 0.3s;display:inline-block}
+.btn-primary:hover{opacity:0.85}
+.btn-secondary{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--silver);text-decoration:none;display:flex;align-items:center;gap:12px;transition:color 0.3s}
+.btn-secondary::after{content:'→';transition:transform 0.3s}
+.btn-secondary:hover{color:var(--white)}
+.btn-secondary:hover::after{transform:translateX(4px)}
+.hero-scroll{position:absolute;bottom:40px;right:60px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero-scroll span{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--silver);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--accent),transparent)}
+
+/* HERO PHOTO PLACEHOLDER — replace this div with your <img> tag */
+.hero-photo{position:absolute;inset:0;z-index:0}
+.hero-photo img{width:100%;height:100%;object-fit:cover;opacity:0.35}
+
+.manifesto{padding:140px 60px;background:var(--charcoal);position:relative}
+.manifesto::before{content:'';position:absolute;top:0;left:60px;right:60px;height:1px;background:linear-gradient(to right,transparent,var(--accent),transparent)}
+.manifesto-inner{max-width:760px;margin:0 auto;text-align:center}
+.section-label{font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:40px}
+.manifesto-text{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;line-height:1.5;color:var(--white)}
+.manifesto-text em{font-style:italic;color:var(--accent)}
+
+.process{padding:140px 60px;background:var(--black)}
+.process-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:80px}
+.process-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:300;color:var(--white)}
+.process-intro{max-width:340px;font-size:13px;line-height:1.9;color:var(--silver)}
+.process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06)}
+.step{background:var(--black);padding:48px 40px;position:relative;transition:background 0.4s}
+.step:hover{background:var(--graphite)}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:rgba(184,168,138,0.12);line-height:1;margin-bottom:24px}
+.step-title{font-size:13px;letter-spacing:0.2em;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+.step-desc{font-size:13px;line-height:1.9;color:var(--silver)}
+.step-line{position:absolute;bottom:0;left:40px;right:40px;height:1px;background:var(--accent);transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
+.step:hover .step-line{transform:scaleX(1)}
+
+.vehicles{padding:140px 60px;background:var(--charcoal)}
+.vehicles-header{margin-bottom:64px}
+.vehicles-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:300;color:var(--white);margin-bottom:16px}
+.vehicles-sub{font-size:13px;color:var(--silver);letter-spacing:0.05em}
+.vehicles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06)}
+.vehicle-item{background:var(--charcoal);padding:32px 28px;transition:background 0.3s}
+.vehicle-item:hover{background:var(--graphite)}
+.vehicle-brand{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--white);margin-bottom:6px}
+.vehicle-type{font-size:11px;letter-spacing:0.15em;color:var(--silver);text-transform:uppercase}
+
+.results{padding:140px 60px;background:var(--black)}
+.results-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:80px}
+.results-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:300;color:var(--white)}
+.results-link{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:10px;transition:gap 0.3s}
+.results-link:hover{gap:16px}
+.case-study{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);margin-bottom:1px}
+.before-after{position:relative;aspect-ratio:16/10;overflow:hidden}
+.before-after img{width:100%;height:100%;object-fit:cover}
+.before-after-label{position:absolute;top:20px;left:20px;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--silver);background:rgba(8,8,8,0.8);padding:6px 14px;backdrop-filter:blur(4px)}
+.img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.15);text-transform:uppercase;background:var(--graphite);aspect-ratio:16/10}
+.case-info{background:var(--graphite);padding:48px 48px;display:flex;flex-direction:column;justify-content:center}
+.case-vehicle{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.case-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:16px}
+.case-desc{font-size:13px;line-height:1.9;color:var(--silver);margin-bottom:32px}
+.case-tags{display:flex;gap:12px;flex-wrap:wrap}
+.tag{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--silver);border:1px solid rgba(255,255,255,0.1);padding:6px 16px}
+
+.why{padding:140px 60px;background:var(--charcoal)}
+.why-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start}
+.why-label{font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:32px}
+.why-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:40px}
+.why-title em{font-style:italic;color:var(--accent)}
+.why-text{font-size:13px;line-height:2;color:var(--silver);margin-bottom:40px}
+.why-cta{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:16px 40px;text-decoration:none;display:inline-block;transition:opacity 0.3s}
+.why-cta:hover{opacity:0.85}
+.why-right{display:flex;flex-direction:column;gap:1px}
+.why-point{background:var(--black);padding:32px 36px;border-left:2px solid transparent;transition:border-color 0.3s}
+.why-point:hover{border-left-color:var(--accent)}
+.why-point-title{font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);margin-bottom:8px}
+.why-point-desc{font-size:13px;line-height:1.8;color:var(--silver)}
+
+.social-proof{padding:140px 60px;background:var(--black)}
+.social-proof::before{content:'';display:block;height:1px;background:linear-gradient(to right,transparent,var(--accent),transparent);margin-bottom:140px;margin-left:-60px;margin-right:-60px}
+.reviews-header{text-align:center;margin-bottom:80px}
+.reviews-rating{display:flex;justify-content:center;align-items:center;gap:6px;margin-bottom:20px}
+.stars{color:var(--accent);font-size:20px;letter-spacing:4px}
+.rating-text{font-size:12px;letter-spacing:0.15em;color:var(--silver)}
+.reviews-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:300;color:var(--white)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);grid-template-rows:auto auto}
+.review-card{background:var(--black);padding:40px 36px}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;font-style:italic;line-height:1.7;color:var(--white);margin-bottom:24px}
+.review-author{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--silver)}
+.review-vehicle{font-size:11px;color:var(--accent);margin-top:4px}
+
+.cta-section{padding:180px 60px;background:var(--charcoal);text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'DIAMOND LUX';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Cormorant Garamond',serif;font-size:clamp(60px,12vw,160px);font-weight:300;color:transparent;-webkit-text-stroke:1px rgba(184,168,138,0.06);white-space:nowrap;user-select:none}
+.cta-label{font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:32px}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,72px);font-weight:300;color:var(--white);margin-bottom:24px;position:relative}
+.cta-sub{font-size:13px;line-height:1.9;color:var(--silver);max-width:520px;margin:0 auto 56px;position:relative}
+.cta-actions{display:flex;justify-content:center;gap:24px;align-items:center;position:relative}
+
+.contact-form{padding:140px 60px;background:var(--black)}
+.form-inner{max-width:640px;margin:0 auto}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;color:var(--white);margin-bottom:16px}
+.form-sub{font-size:13px;line-height:1.9;color:var(--silver);margin-bottom:56px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.form-group{display:flex;flex-direction:column;gap:10px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--silver)}
+.form-input,.form-select,.form-textarea{background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.15);padding:14px 0;color:var(--white);font-family:'Jost',sans-serif;font-size:14px;font-weight:300;width:100%;transition:border-color 0.3s;outline:none;-webkit-appearance:none}
+.form-input::placeholder{color:rgba(255,255,255,0.2)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-bottom-color:var(--accent)}
+.form-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9a9a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center}
+.form-select option{background:var(--charcoal);color:var(--white)}
+.form-textarea{resize:none;min-height:100px}
+.form-submit{margin-top:48px}
+.submit-btn{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--black);background:var(--accent);padding:18px 56px;border:none;cursor:pointer;font-family:'Jost',sans-serif;transition:opacity 0.3s;display:inline-block}
+.submit-btn:hover{opacity:0.85}
+.form-note{font-size:11px;color:rgba(255,255,255,0.3);margin-top:16px;letter-spacing:0.05em}
+
+footer{padding:60px;background:var(--black);border-top:1px solid rgba(255,255,255,0.06)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:0.15em;color:var(--white)}
+.footer-logo span{color:var(--accent)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.1em}
+.footer-links{display:flex;gap:32px}
+.footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.3s}
+.footer-links a:hover{color:var(--accent)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-content>*{animation:fadeUp 0.8s ease both}
+.hero-eyebrow{animation-delay:0.1s}
+.hero-title{animation-delay:0.2s}
+.hero-sub{animation-delay:0.35s}
+.hero-actions{animation-delay:0.5s}
+
+@media(max-width:768px){
+nav{padding:20px 24px}
+.nav-links{display:none}
+.hero{padding:0 24px 60px}
+.hero-number{font-size:120px;right:24px}
+.manifesto,.process,.vehicles,.results,.why,.social-proof,.cta-section,.contact-form{padding:80px 24px}
+.process-header{flex-direction:column;gap:24px;align-items:flex-start}
+.process-steps{grid-template-columns:1fr}
+.vehicles-grid{grid-template-columns:repeat(2,1fr)}
+.case-study{grid-template-columns:1fr}
+.why-inner{grid-template-columns:1fr;gap:48px}
+.reviews-grid{grid-template-columns:1fr}
+.form-grid{grid-template-columns:1fr}
+.form-group.full{grid-column:1}
+.footer-inner{flex-direction:column;gap:24px;text-align:center}
+.footer-links{flex-wrap:wrap;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Diamond <span>Lux</span></a>
+  <ul class="nav-links">
+    <li><a href="#process">Process</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Request Assessment</a>
+</nav>
+
+<!-- HERO: Replace the hero-bg div with your hero photo using <img> inside .hero-photo -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-number">DL</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Sydney — Vehicle Preservation Studio</p>
+    <h1 class="hero-title">Not Detailing.<br><em>Preservation.</em></h1>
+    <p class="hero-sub">Paint correction, ceramic protection, and long-term maintenance for owners who demand more than average results.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request Your Assessment</a>
+      <a href="#results" class="btn-secondary">See Our Results</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <p class="section-label">Our Philosophy</p>
+    <p class="manifesto-text">
+      Most vehicles are cleaned. Few are truly <em>restored.</em><br>
+      Diamond Lux was founded on one belief: protection applied over imperfection is not protection at all.
+    </p>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="process-header">
+    <h2 class="process-title">A Standard Built<br>for Preservation</h2>
+    <p class="process-intro">Every vehicle undergoes a structured restoration, refinement, and protection process — designed to improve appearance, preserve condition, and protect long-term value.</p>
+  </div>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Assess</h3>
+      <p class="step-desc">A comprehensive vehicle inspection under controlled lighting. Every defect documented before any work begins. No assumptions. No shortcuts.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Restore</h3>
+      <p class="step-desc">Multi-stage paint correction removes swirls, scratches, and oxidation. The surface is refined to its true clarity before any protection is applied.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3 class="step-title">Protect</h3>
+      <p class="step-desc">Premium ceramic coating applied to a properly corrected surface. Lasting protection that actually performs — because the foundation beneath it is sound.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Document</h3>
+      <p class="step-desc">A written assessment delivered before and after every vehicle. Measurable results. Full transparency on what was achieved and why.</p>
+      <div class="step-line"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <h3 class="step-title">Maintain</h3>
+      <p class="step-desc">An ongoing maintenance program designed to preserve the investment. Scheduled care that extends the life of every coating and treatment applied.</p>
+      <div class="step-line"></div>
+    </div>
+  </div>
+</section>
+
+<section class="vehicles">
+  <div class="vehicles-header">
+    <h2 class="vehicles-title">Built for Vehicles<br>That Deserve More</h2>
+    <p class="vehicles-sub">We accept a limited number of vehicles each month.</p>
+  </div>
+</section>
+
+<section class="why" id="about">
+  <div class="why-inner">
+    <div class="why-left">
+      <p class="why-label">Why Diamond Lux</p>
+      <h2 class="why-title">A Different<br><em>Standard</em><br>of Care</h2>
+      <p class="why-text">Diamond Lux was built for owners who understand that their vehicle is more than transportation — it is an investment, a statement, and a source of genuine pride.<br><br>We exist for the owner who will not accept average results. Who understands that protection applied over an uncorrected surface is a compromise. Who expects precision, transparency, and a measurable outcome.</p>
+      <a href="#contact" class="why-cta">Request Your Assessment</a>
+    </div>
+    <div class="why-right">
+      <div class="why-point">
+        <p class="why-point-title">Restoration Before Protection</p>
+        <p class="why-point-desc">We correct the paint surface before any coating is applied. Protection over imperfection is not protection at all.</p>
+      </div>
+      <div class="why-point">
+        <p class="why-point-title">Documented Results</p>
+        <p class="why-point-desc">Every vehicle receives a written assessment before and after. You see exactly what was achieved and why.</p>
+      </div>
+      <div class="why-point">
+        <p class="why-point-title">Limited Vehicle Intake</p>
+        <p class="why-point-desc">We accept a limited number of vehicles each month. Your vehicle receives our full attention — not a slot in a production line.</p>
+      </div>
+      <div class="why-point">
+        <p class="why-point-title">Long-Term Strategy</p>
+        <p class="why-point-desc">We design a preservation plan for each vehicle. The goal is not a single treatment — it is sustained excellence over time.</p>
+      </div>
+      <div class="why-point">
+        <p class="why-point-title">Boutique Precision</p>
+        <p class="why-point-desc">Every detail matters. Every panel. Every surface. We work to the highest standard technically achievable — without exception.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="social-proof">
+  <div class="reviews-header">
+    <div class="reviews-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text">5.0 · Google Reviews</span>
+    </div>
+    <h2 class="reviews-title">What Our Clients Say</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <p class="review-text">"Incredible service. My car looks brand new and is ready to be sold again. Great attention to detail."</p>
+      <p class="review-author">Emma Mallinson</p>
+      <p class="review-vehicle">Sydney · Google Review</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"I had a great experience with Diamond Lux. Javier restored the headlights on my car and my wife's car and also corrected the scratches on the bonnet. Everything turned out perfect. Definitely five stars."</p>
+      <p class="review-author">Chandler Silva</p>
+      <p class="review-vehicle">Sydney · Google Review</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"Excellent headlight restoration. The difference before and after was huge. The headlights look clear again and the car looks much better overall. Very satisfied with the service."</p>
+      <p class="review-author">Rodrigo Aguilar</p>
+      <p class="review-vehicle">Sydney · Google Review</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"Absolutely amazing job! Can't recommend enough — any detailing needs, ring Javier!"</p>
+      <p class="review-author">Jacob Burgess</p>
+      <p class="review-vehicle">Sydney · Google Review</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"Very happy with the headlight restoration service. The headlights look clear and like new again. Great result and professional work. Highly recommended."</p>
+      <p class="review-author">Felipe Cerda</p>
+      <p class="review-vehicle">Sydney · Google Review</p>
+    </div>
+    <div class="review-card">
+      <p class="review-text">"I can't recommend Javier enough. Fantastic service and high quality results."</p>
+      <p class="review-author">Holly Tagima</p>
+      <p class="review-vehicle">Sydney · Google Review</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <p class="cta-label">Begin Your Assessment</p>
+  <h2 class="cta-title">Your Vehicle Has a Standard.<br>We Maintain It.</h2>
+  <p class="cta-sub">We accept a limited number of vehicles each month. Request an assessment — we will recommend exactly what your vehicle needs.</p>
+  <div class="cta-actions">
+    <a href="#contact" class="btn-primary">Request Your Assessment</a>
+  </div>
+</section>
+
+<section class="contact-form" id="contact">
+  <div class="form-inner">
+    <h2 class="form-title">Request Your Vehicle Assessment</h2>
+    <p class="form-sub">We accept a limited number of vehicles each month. Start with an assessment — we'll recommend exactly what your vehicle needs. No commitment required.</p>
+
+    <div id="form-status" style="display:none;padding:16px 24px;margin-bottom:32px;font-size:13px;letter-spacing:0.05em"></div>
+    <form action="mail.php" method="POST">
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label" for="name">Full Name</label>
+        <input type="text" id="name" name="name" class="form-input" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" class="form-input" placeholder="+61 4XX XXX XXX" required>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="email">Email Address</label>
+        <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="vehicle">Vehicle Make &amp; Model</label>
+        <input type="text" id="vehicle" name="vehicle" class="form-input" placeholder="Porsche 911 Carrera 2023" required>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="service">Primary Concern</label>
+        <select id="service" name="service" class="form-select" required>
+          <option value="" disabled selected>Preservation Program</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="source">How Did You Hear About Us?</label>
+        <select id="source" name="source" class="form-select">
+          <option value="" disabled selected>Select an option</option>
+          <option>Google Search</option>
+          <option>Instagram</option>
+          <option>Referral</option>
+          <option>Google Maps</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label class="form-label" for="message">Additional Notes (optional)</label>
+        <textarea id="message" name="message" class="form-textarea" placeholder="Tell us about your vehicle's condition or any specific concerns..."></textarea>
+      </div>
+    </div>
+    <div class="form-submit">
+      <button type="submit" class="submit-btn">Submit Assessment Request</button>
+      <p class="form-note">We respond to all enquiries within 24 hours. Sydney — Inner West · Eastern Suburbs · North Shore · Sutherland Shire.</p>
+    </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo">Diamond <span>Lux</span></p>
+    <div class="footer-links">
+      <a href="#process">Process</a>
+      <a href="#results">Results</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p class="footer-copy">© 2025 Diamond Lux · Sydney, Australia</p>
+  </div>
+</footer>
+
+<script>
+var params = new URLSearchParams(window.location.search);
+var status = params.get("status");
+var el = document.getElementById("form-status");
+if(status === "success" && el){
+  el.style.display="block";
+  el.style.background="rgba(184,168,138,0.1)";
+  el.style.border="1px solid rgba(184,168,138,0.3)";
+  el.style.color="var(--accent)";
+  el.innerHTML="Thank you. We have received your assessment request and will be in touch within 24 hours.";
+  document.querySelector(".contact-form").scrollIntoView({behavior:"smooth"});
+}
+if(status === "error" && el){
+  el.style.display="block";
+  el.style.background="rgba(255,80,80,0.05)";
+  el.style.border="1px solid rgba(255,80,80,0.2)";
+  el.style.color="#cc6666";
+  el.innerHTML="Something went wrong. Please try again or contact us directly.";
+}
+</script>
+</body>
+</html>

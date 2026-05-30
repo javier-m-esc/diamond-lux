@@ -6,8 +6,6 @@ import { cn } from '@/lib/utils';
 
 type Direction = 'up' | 'down' | 'left' | 'right' | 'fade';
 
-// Pull in only the safe HTML attributes that don't clash with Framer Motion
-// (onAnimationStart et al. have incompatible signatures between React and FM).
 type SafeHtmlProps = Pick<
   React.HTMLAttributes<HTMLDivElement>,
   'role' | 'aria-label' | 'aria-labelledby' | 'aria-describedby' | 'aria-hidden' | 'id'
@@ -24,34 +22,37 @@ type RevealWrapperProps = SafeHtmlProps & {
   amount?:    number;
 };
 
-// Pixel offsets per direction
 const OFFSET: Record<Direction, { x?: number; y?: number }> = {
-  up:    { y:  32 },
-  down:  { y: -32 },
-  left:  { x:  32 },
-  right: { x: -32 },
+  up:    { y:  24 },
+  down:  { y: -24 },
+  left:  { x:  24 },
+  right: { x: -24 },
   fade:  {},
 };
 
 export function RevealWrapper({
   children,
   delay     = 0,
-  duration  = 0.7,
+  duration  = 0.9,
   direction = 'up',
   distance,
   className,
   once   = true,
-  amount = 0.1,
+  amount = 0.12,
   ...htmlProps
 }: RevealWrapperProps) {
-  const ref    = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, amount });
+  const ref          = useRef<HTMLDivElement>(null);
+  const isInView     = useInView(ref, { once, amount });
   const prefersReduced = useReducedMotion();
 
-  const baseOffset = OFFSET[direction];
-  // Allow caller to override the travel distance
+  const baseOffset  = OFFSET[direction];
   const scaledOffset = distance
-    ? Object.fromEntries(Object.entries(baseOffset).map(([k, v]) => [k, (v as number) > 0 ? distance : -distance]))
+    ? Object.fromEntries(
+        Object.entries(baseOffset).map(([k, v]) => [
+          k,
+          (v as number) > 0 ? distance : -distance,
+        ])
+      )
     : baseOffset;
 
   const hidden  = prefersReduced ? { opacity: 0 } : { opacity: 0, ...scaledOffset };
@@ -63,11 +64,18 @@ export function RevealWrapper({
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       variants={{ hidden, visible }}
-      transition={{
-        delay,
-        duration: prefersReduced ? 0.25 : duration,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      transition={
+        prefersReduced
+          ? { duration: 0.2 }
+          : {
+              // Spring physics — organic deceleration, no bounce
+              type:      'spring',
+              stiffness: 60,
+              damping:   22,
+              mass:      0.8,
+              delay,
+            }
+      }
       className={cn(className)}
       {...htmlProps}
     >

@@ -62,13 +62,13 @@ function FieldError({ message }: { message?: string }) {
 }
 
 const INPUT_BASE = [
-  'w-full bg-bg-secondary border border-border',
-  'focus:border-accent focus:bg-bg-tertiary',
-  'text-fg placeholder-fg-muted/45 px-4 py-3.5 text-sm font-sans',
+  'w-full bg-white border border-black/20',
+  'focus:border-[#E8E4DC] focus:bg-gray-50',
+  'text-black placeholder-black/30 px-4 py-3.5 text-sm font-sans',
   'transition-all duration-300 outline-none appearance-none',
 ].join(' ');
 
-const LABEL_BASE = 'block text-[0.6875rem] tracking-[0.18em] text-fg-muted uppercase mb-2';
+const LABEL_BASE = 'block text-[0.6875rem] tracking-[0.18em] text-black/50 uppercase mb-2';
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function BookingForm() {
@@ -142,7 +142,7 @@ export default function BookingForm() {
   return (
     <section
       id="booking"
-      className="py-section-sm md:py-section bg-bg-secondary border-t border-border"
+      className="py-section-sm md:py-section bg-white text-black border-t border-black/10"
       aria-labelledby="booking-heading"
     >
       <div className="max-w-site mx-auto px-6 md:px-10 lg:px-16">
@@ -157,18 +157,18 @@ export default function BookingForm() {
               </div>
               <h2
                 id="booking-heading"
-                className="font-display italic text-display-xl text-fg leading-[0.94] mb-8 text-balance"
+                className="font-display italic text-display-xl text-black leading-[0.94] mb-8 text-balance"
               >
                 Start the conversation.
               </h2>
             </RevealWrapper>
 
             <RevealWrapper delay={0.1}>
-              <p className="text-fg-muted leading-relaxed mb-5 text-pretty">
+              <p className="text-black/60 leading-relaxed mb-5 text-pretty">
                 Fill in the form and we'll respond within 24 hours with a personalised
                 quote and availability confirmation. No payment required at this stage.
               </p>
-              <p className="text-fg-muted leading-relaxed text-pretty">
+              <p className="text-black/60 leading-relaxed text-pretty">
                 If you're unsure which service suits your vehicle, select "Please advise me"
                 and we'll assess your paint condition and recommend the right package.
               </p>
@@ -177,10 +177,10 @@ export default function BookingForm() {
             <RevealWrapper delay={0.18} className="mt-12 space-y-5">
               {CONTACT_INFO.map(({ label, value }) => (
                 <div key={label} className="flex items-start gap-4">
-                  <span className="w-6 h-px bg-border-light mt-[0.65em] shrink-0" aria-hidden />
+                  <span className="w-6 h-px bg-black/20 mt-[0.65em] shrink-0" aria-hidden />
                   <div>
-                    <p className="text-fg-muted text-[0.6875rem] tracking-[0.18em] uppercase mb-0.5">{label}</p>
-                    <p className="text-fg text-sm font-medium">{value}</p>
+                    <p className="text-black/50 text-[0.6875rem] tracking-[0.18em] uppercase mb-0.5">{label}</p>
+                    <p className="text-black text-sm font-medium">{value}</p>
                   </div>
                 </div>
               ))}
@@ -205,18 +205,18 @@ export default function BookingForm() {
                   {/* Diamond checkmark icon */}
                   <span className="mb-8 w-12 h-12 border border-accent/50 rotate-45 flex items-center justify-center">
                     <svg className="-rotate-45" width="18" height="14" viewBox="0 0 18 14" fill="none" aria-hidden>
-                      <path d="M2 7l4 4 10-10" stroke="#C9A97A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M2 7l4 4 10-10" stroke="#E8E4DC" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </span>
 
-                  <h3 className="font-display italic text-display-md text-fg mb-5">
+                  <h3 className="font-display italic text-display-md text-black mb-5">
                     Enquiry received.
                   </h3>
-                  <p className="text-fg-muted leading-relaxed max-w-sm mb-4">
+                  <p className="text-black/60 leading-relaxed max-w-sm mb-4">
                     We've received your request and will be in touch within 24 hours with a
                     personalised quote and availability confirmation for your chosen month.
                   </p>
-                  <p className="text-fg-muted text-sm leading-relaxed max-w-sm">
+                  <p className="text-black/60 text-sm leading-relaxed max-w-sm">
                     In the meantime, you're welcome to explore our work on Instagram.
                   </p>
                 </motion.div>
@@ -359,7 +359,7 @@ export default function BookingForm() {
                     )}
                   </button>
 
-                  <p className="mt-4 text-fg-muted text-xs text-center tracking-wide">
+                  <p className="mt-4 text-black/50 text-xs text-center tracking-wide">
                     We respond within 24 hours. No spam, ever.
                   </p>
                 </motion.form>
