@@ -1,0 +1,6 @@
+# Force index.html as the default document
+DirectoryIndex index.html
+
+# Canonical redirect: /index.html → /
+RewriteEngine On
+RewriteRule ^index\.html$ / [R=301,L]
