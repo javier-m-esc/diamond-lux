@@ -340,7 +340,7 @@ nav{padding:20px 24px}
     <h2 class="form-title">Request Your Vehicle Assessment</h2>
     <p class="form-sub">We accept a limited number of vehicles each month. Start with an assessment — we'll recommend exactly what your vehicle needs. No commitment required.</p>
     <div id="form-status" style="display:none;padding:16px 24px;margin-bottom:32px;font-size:13px;letter-spacing:0.05em"></div>
-    <form action="mail.php" method="POST">
+    <form id="assessment-form">
       <div class="form-grid">
         <div class="form-group">
           <label class="form-label" for="name">Full Name</label>
@@ -406,25 +406,63 @@ nav{padding:20px 24px}
   </div>
 </footer>
 
-<script>
-var params = new URLSearchParams(window.location.search);
-var status = params.get("status");
-var el = document.getElementById("form-status");
-if(status === "success" && el){
-  el.style.display="block";
-  el.style.background="rgba(184,168,138,0.1)";
-  el.style.border="1px solid rgba(184,168,138,0.3)";
-  el.style.color="var(--accent)";
-  el.innerHTML="Thank you. We have received your assessment request and will be in touch within 24 hours.";
-  document.querySelector(".contact-form").scrollIntoView({behavior:"smooth"});
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = 'https://hdxmbthgxuouujzraclp.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pSZSIbb6bsOHRquXfbBfzw_Zy2NI6h-';
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const form = document.getElementById('assessment-form');
+const statusEl = document.getElementById('form-status');
+const submitBtn = form.querySelector('.submit-btn');
+
+function showStatus(type, message) {
+  statusEl.style.display = 'block';
+  statusEl.style.padding = '16px 24px';
+  statusEl.style.marginBottom = '32px';
+  statusEl.style.fontSize = '13px';
+  statusEl.style.letterSpacing = '0.05em';
+  if (type === 'success') {
+    statusEl.style.background = 'rgba(184,168,138,0.1)';
+    statusEl.style.border = '1px solid rgba(184,168,138,0.3)';
+    statusEl.style.color = 'var(--accent)';
+  } else {
+    statusEl.style.background = 'rgba(255,80,80,0.05)';
+    statusEl.style.border = '1px solid rgba(255,80,80,0.2)';
+    statusEl.style.color = '#cc6666';
+  }
+  statusEl.innerHTML = message;
+  statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
-if(status === "error" && el){
-  el.style.display="block";
-  el.style.background="rgba(255,80,80,0.05)";
-  el.style.border="1px solid rgba(255,80,80,0.2)";
-  el.style.color="#cc6666";
-  el.innerHTML="Something went wrong. Please try again or contact us directly.";
-}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending…';
+
+  const data = {
+    name:    form.name.value.trim(),
+    phone:   form.phone.value.trim(),
+    email:   form.email.value.trim(),
+    vehicle: form.vehicle.value.trim(),
+    service: form.service.value,
+    source:  form.source.value || null,
+    message: form.message.value.trim() || null,
+  };
+
+  const { error } = await supabase.from('contact_submissions').insert(data);
+
+  if (error) {
+    showStatus('error', 'Something went wrong. Please try again or contact us directly.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Assessment Request';
+  } else {
+    showStatus('success', 'Thank you. We have received your assessment request and will be in touch within 24 hours.');
+    form.reset();
+    submitBtn.textContent = 'Submit Assessment Request';
+  }
+});
 </script>
 </body>
 </html>

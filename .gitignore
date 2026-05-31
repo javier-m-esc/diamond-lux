@@ -16,6 +16,8 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+# allow production env (publishable keys only, no secrets)
+!.env.production
 
 # debug logs
 npm-debug.log*
