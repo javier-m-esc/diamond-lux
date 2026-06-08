@@ -426,6 +426,9 @@ body.page-ready .hero-rule{opacity:1;transform:none}
 
   .nav-hamburger{display:flex}
   #mob-cta-bar{display:block}
+  .hero-rule:hover .hero-stat{opacity:1}
+  .review-card:hover{transform:none}
+  .process-home-step:hover{padding-left:0}
 
   .services-home-header{grid-template-columns:1fr;gap:24px}
   .services-home-link{align-self:flex-start;margin-top:8px}
@@ -443,4 +446,175 @@ body.page-ready .hero-rule{opacity:1;transform:none}
 
   .visual-proof-pull{margin-top:40px}
   .visual-proof-caption{padding:16px 20px}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HIGH-END VISUAL LAYER — redesign-existing-projects
+   ═══════════════════════════════════════════════════════════ */
+
+/* Spring & expo easing variables */
+:root{
+  --ease-spring: cubic-bezier(0.32,0.72,0,1);
+  --ease-expo:   cubic-bezier(0.19,1,0.22,1);
+}
+
+/* ── 1. FILM GRAIN OVERLAY ──────────────────────────────── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  z-index:9990;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+  opacity:0.038;
+  mix-blend-mode:screen;
+}
+
+/* ── 2. MOBILE-SAFE HERO HEIGHT + AMBIENT GLOW ──────────── */
+.hero{min-height:100dvh}
+.hero::before{
+  content:'';
+  position:absolute;
+  bottom:0;left:20%;
+  width:60%;height:50%;
+  background:radial-gradient(ellipse at center bottom,rgba(200,196,188,0.06) 0%,transparent 70%);
+  pointer-events:none;
+  z-index:1;
+}
+
+/* ── 3. TEXT-WRAP BALANCE ON HEADLINES ──────────────────── */
+.hero-title,.section-title-lg,.cta-title,.page-hero-title,
+.service-home-name,.manifesto-strip-text,.visual-proof-quote{
+  text-wrap:balance;
+}
+
+/* ── 4. SPRING TRANSITIONS ON INTERACTIVE ELEMENTS ──────── */
+.btn-primary,.nav-cta{
+  transition:opacity .55s var(--ease-spring),transform .55s var(--ease-spring);
+}
+.btn-primary:hover,.nav-cta:hover{opacity:.85;transform:translateY(-1px)}
+.btn-primary:active,.nav-cta:active{transform:scale(0.98);transition-duration:.15s}
+
+.btn-ghost{transition:color .5s var(--ease-spring)}
+.btn-ghost::after{transition:transform .5s var(--ease-spring)}
+
+/* ── 5. NAV UNDERLINE DRAW ──────────────────────────────── */
+.nav-center a{position:relative}
+.nav-center a::after{
+  content:'';
+  position:absolute;bottom:-2px;left:0;
+  width:0;height:1px;
+  background:var(--dim);
+  transition:width .5s var(--ease-spring);
+}
+.nav-center a:hover::after,.nav-center a.active::after{width:100%}
+
+/* ── 6. CTA BUTTON WITH TRAILING ARROW CIRCLE ───────────── */
+.btn-primary-arrow{
+  display:inline-flex;
+  align-items:center;
+  font-family:'Archivo Narrow',sans-serif;
+  font-size:11px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--void);background:var(--platinum);
+  padding:12px 12px 12px 36px;
+  text-decoration:none;
+  transition:opacity .55s var(--ease-spring),transform .55s var(--ease-spring);
+}
+.btn-primary-arrow:hover{opacity:.85;transform:translateY(-1px)}
+.btn-primary-arrow:active{transform:scale(0.98);transition-duration:.15s}
+.btn-arrow-icon{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(10,10,10,0.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;margin-left:20px;flex-shrink:0;
+  font-family:'Cormorant Garamond',serif;
+  font-style:normal;font-weight:300;
+  letter-spacing:0;text-transform:none;
+  transition:transform .5s var(--ease-spring);
+}
+.btn-primary-arrow:hover .btn-arrow-icon{transform:translate(2px,-2px)}
+
+/* ── 7. BLUR-REVEAL ON ENTRY ANIMATIONS ─────────────────── */
+/* Upgrades existing dlx-reveal/dlx-title with blur component */
+.dlx-reveal{
+  filter:blur(5px);
+  transition:opacity .9s var(--ease-expo),transform .9s var(--ease-expo),filter .9s var(--ease-expo);
+  transition-delay:var(--dlx-d,0s);
+}
+.dlx-reveal.dlx-in{filter:blur(0)}
+
+.dlx-title{
+  filter:blur(5px);
+  transition:opacity 1s var(--ease-expo) .12s,transform 1s var(--ease-expo) .12s,filter 1s var(--ease-expo) .12s;
+}
+.dlx-title.dlx-in{filter:blur(0)}
+
+/* ── 8. REVIEW CARDS: SPOTLIGHT + LIFT ──────────────────── */
+.review-card{
+  transition:background .5s var(--ease-spring),transform .55s var(--ease-spring);
+}
+.review-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),rgba(232,228,220,0.05),transparent 70%);
+  opacity:0;
+  transition:opacity .4s;
+  pointer-events:none;
+}
+.review-card:hover{background:rgba(255,255,255,0.02);transform:translateY(-3px)}
+.review-card:hover::before{opacity:1}
+
+/* ── 9. HERO STATS: GROUP DIM + INDIVIDUAL HIGHLIGHT ─────── */
+.hero-stat{transition:opacity .4s var(--ease-spring)}
+.hero-stat-num{transition:color .4s var(--ease-spring)}
+.hero-rule:hover .hero-stat{opacity:.4}
+.hero-rule:hover .hero-stat:hover{opacity:1}
+.hero-rule:hover .hero-stat:hover .hero-stat-num{color:var(--platinum)}
+
+/* ── 10. SERVICE CARDS: SPRING TRANSITION ────────────────── */
+.service-home-card{transition:padding-left .55s var(--ease-spring)}
+.service-home-card:first-child:hover{padding-left:12px}
+.service-home-card:not(:first-child):hover{padding-left:60px}
+
+/* ── 11. SERVICE TAGS: HOVER RESPONSE ───────────────────── */
+.service-tag{
+  transition:background .4s var(--ease-spring),border-color .4s var(--ease-spring),color .4s var(--ease-spring);
+  cursor:default;
+}
+.service-tag:hover{background:rgba(232,228,220,0.06);border-color:var(--graphite);color:var(--silver)}
+
+/* ── 12. PROCESS STEPS: HOVER INDENT ────────────────────── */
+.process-home-step{transition:padding-left .55s var(--ease-spring);cursor:default}
+.process-home-step:hover{padding-left:12px}
+
+/* ── 13. MOBILE NAV: STAGGERED BLUR-REVEAL ───────────────── */
+.mob-nav-links a{
+  opacity:0;transform:translateY(20px);filter:blur(4px);
+  transition:
+    opacity   .7s var(--ease-expo),
+    transform .7s var(--ease-expo),
+    filter    .7s var(--ease-expo),
+    color     .3s var(--ease-spring),
+    padding-left .3s var(--ease-spring);
+}
+#mob-nav.open .mob-nav-links a:nth-child(1){opacity:1;transform:none;filter:blur(0);transition-delay:.07s,.07s,.07s,0s,0s}
+#mob-nav.open .mob-nav-links a:nth-child(2){opacity:1;transform:none;filter:blur(0);transition-delay:.15s,.15s,.15s,0s,0s}
+#mob-nav.open .mob-nav-links a:nth-child(3){opacity:1;transform:none;filter:blur(0);transition-delay:.23s,.23s,.23s,0s,0s}
+#mob-nav.open .mob-nav-links a:nth-child(4){opacity:1;transform:none;filter:blur(0);transition-delay:.31s,.31s,.31s,0s,0s}
+
+/* ── 14. FOOTER: TRACKING EXPAND ON HOVER ───────────────── */
+.footer-links a{transition:color .5s var(--ease-spring),letter-spacing .4s var(--ease-spring)}
+.footer-links a:hover{letter-spacing:.28em}
+
+/* ── 15. COMPARISON ITEMS: MICRO HOVER ──────────────────── */
+.comparison-item{
+  transition:color .4s var(--ease-spring),padding-left .4s var(--ease-spring);
+}
+.comparison-item:hover{color:var(--platinum);padding-left:4px}
+
+/* ── REDUCED MOTION OVERRIDES ───────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  .dlx-reveal,.dlx-title{filter:none!important;transition-duration:.01ms!important}
+  .btn-primary:hover,.nav-cta:hover,.btn-primary-arrow:hover{transform:none!important}
+  body::after{display:none}
 }

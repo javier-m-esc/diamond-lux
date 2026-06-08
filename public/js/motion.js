@@ -155,6 +155,15 @@
     heroEl.addEventListener('mouseleave',function(){heroBgImg.style.transform='scale(1)';});
   }
 
+  /* ── REVIEW CARD SPOTLIGHT ──────────────────────────────── */
+  document.querySelectorAll('.review-card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    },{passive:true});
+  });
+
   /* ── FAQ ACCORDION ──────────────────────────────────────── */
   document.querySelectorAll('.faq-question').forEach(function(btn){
     btn.addEventListener('click',function(){
