@@ -16,6 +16,22 @@
 <div id="cx-dot" aria-hidden="true"></div>
 <div id="cx-ring" aria-hidden="true"></div>
 
+<!-- ── MOBILE NAV OVERLAY ─────────────────────────────────── -->
+<div id="mob-nav" aria-hidden="true" role="dialog" aria-label="Navigation menu">
+  <div class="mob-nav-inner">
+    <nav class="mob-nav-links">
+      <a href="services.html">Services</a>
+      <a href="process.html">Process</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="mob-nav-footer">
+      <a href="contact.html" class="btn-primary">Apply for Assessment</a>
+      <p class="mob-nav-location">Sydney, AU</p>
+    </div>
+  </div>
+</div>
+
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">
     <img src="images/logo.PNG" alt="Diamond Lux Automotive Aesthetics">
@@ -30,6 +46,10 @@
     <span class="nav-location">Sydney, AU</span>
     <a href="contact.html" class="nav-cta">Apply for Assessment</a>
   </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mob-nav">
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- ── HERO ──────────────────────────────────────────────── -->
@@ -120,6 +140,115 @@
 
 <div class="h-rule"></div>
 
+<!-- ── SERVICES PREVIEW ────────────────────────────────────── -->
+<section class="services-home" id="services">
+  <div class="services-home-header">
+    <div class="services-home-header-left">
+      <p class="section-label-tag">What We Do — 02</p>
+      <h2 class="section-title-lg">Three disciplines.<br>One standard.</h2>
+    </div>
+    <a href="services.html" class="btn-ghost services-home-link">All Services</a>
+  </div>
+  <div class="services-home-grid">
+    <div class="service-home-card">
+      <div class="service-home-num" aria-hidden="true">01</div>
+      <div class="service-home-body">
+        <p class="service-home-label">Paint Correction</p>
+        <h3 class="service-home-name">Surface<br>Perfected</h3>
+        <p class="service-home-desc">Stage-by-stage defect removal at the microscopic level. Every swirl, scratch, and contamination addressed before any coating is applied.</p>
+        <div class="service-home-tags">
+          <span class="service-tag">Multi-Stage</span>
+          <span class="service-tag">PTG Verified</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-home-card">
+      <div class="service-home-num" aria-hidden="true">02</div>
+      <div class="service-home-body">
+        <p class="service-home-label">Ceramic Coating</p>
+        <h3 class="service-home-name">Protection<br><em>That Lasts</em></h3>
+        <p class="service-home-desc">A 9H-rated ceramic shield bonded to a corrected surface. Not applied over imperfection — a finish that earns it first.</p>
+        <div class="service-home-tags">
+          <span class="service-tag">9H Rated</span>
+          <span class="service-tag">5-Year Durability</span>
+        </div>
+      </div>
+    </div>
+    <div class="service-home-card">
+      <div class="service-home-num" aria-hidden="true">03</div>
+      <div class="service-home-body">
+        <p class="service-home-label">Texture Leveling</p>
+        <h3 class="service-home-name">Orange Peel<br><em>Removed</em></h3>
+        <p class="service-home-desc">Orange peel is the flaw factory paint hides. Wet-sand texture leveling eliminates it permanently — the reflections speak for themselves.</p>
+        <div class="service-home-tags">
+          <span class="service-tag">Wet Sanding</span>
+          <span class="service-tag">Liquid Mirror</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-rule"></div>
+
+<!-- ── PROCESS PREVIEW ────────────────────────────────────── -->
+<section class="process-home">
+  <div class="process-home-header">
+    <p class="section-label-tag">How It Works — 03</p>
+    <div class="process-home-header-row">
+      <h2 class="section-title-lg">The assessment<br>is where it begins.</h2>
+      <a href="process.html" class="btn-ghost process-home-link">Full Process Detail</a>
+    </div>
+  </div>
+  <div class="process-home-steps">
+    <div class="process-home-step">
+      <div class="phs-num" aria-hidden="true">01</div>
+      <div class="phs-body">
+        <p class="phs-title">Paint Assessment</p>
+        <p class="phs-desc">We gauge every panel, document every defect, and write a complete proposal before any work begins. No assumptions. No surprises.</p>
+      </div>
+    </div>
+    <div class="process-home-arrow" aria-hidden="true">&#8594;</div>
+    <div class="process-home-step">
+      <div class="phs-num" aria-hidden="true">02</div>
+      <div class="phs-body">
+        <p class="phs-title">Correction</p>
+        <p class="phs-desc">Stage-by-stage paint correction. Texture leveling where the surface demands it. Preparation done at the level the vehicle requires.</p>
+      </div>
+    </div>
+    <div class="process-home-arrow" aria-hidden="true">&#8594;</div>
+    <div class="process-home-step">
+      <div class="phs-num" aria-hidden="true">03</div>
+      <div class="phs-body">
+        <p class="phs-title">Protection</p>
+        <p class="phs-desc">Ceramic coating applied to a surface that is ready for it. Sealed, documented, and returned to the owner.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="h-rule"></div>
+
+<!-- ── VISUAL PROOF ────────────────────────────────────────── -->
+<section class="visual-proof">
+  <div class="visual-proof-header">
+    <p class="section-label-tag">The Difference — 04</p>
+    <h2 class="section-title-lg">Seen in the<br><em>surface.</em></h2>
+  </div>
+  <figure class="visual-proof-img">
+    <img src="images/surface-comparison.png" alt="Paint surface before and after texture leveling — the difference in reflection depth and clarity" loading="lazy">
+    <figcaption class="visual-proof-caption">
+      <p class="vp-caption-text">Surface comparison: factory finish vs. texture-leveled and corrected paint. The difference is measurable before it is visible.</p>
+    </figcaption>
+  </figure>
+  <div class="visual-proof-pull">
+    <p class="visual-proof-quote">"The depth of the paint after treatment is in a different category."</p>
+    <p class="visual-proof-attr">Daniel R. &middot; Mercedes-AMG C63 &middot; Multi-Stage Paint Correction</p>
+  </div>
+</section>
+
+<div class="h-rule"></div>
+
 <!-- ── REVIEWS ─────────────────────────────────────────────── -->
 <section class="social-proof">
   <div class="reviews-header">
@@ -128,13 +257,13 @@
       <h2 class="section-title-lg">The Work Speaks</h2>
     </div>
     <div class="reviews-meta">
-      <span class="stars">★★★★★</span>
+      <span class="stars" aria-label="Five stars">★★★★★</span>
       <span class="rating-text">5.0 · Google Reviews</span>
     </div>
   </div>
   <div class="reviews-grid">
     <div class="review-card">
-      <div class="review-open-quote">&ldquo;</div>
+      <div class="review-open-quote" aria-hidden="true">&ldquo;</div>
       <p class="review-text">The paint correction on my 911 was nothing short of extraordinary. Swirls I had accepted as permanent are completely gone. The ceramic coating has held flawlessly for six months — the surface still beads water like day one.</p>
       <div class="review-footer">
         <p class="review-author">Marcus T.</p>
@@ -142,7 +271,7 @@
       </div>
     </div>
     <div class="review-card">
-      <div class="review-open-quote">&ldquo;</div>
+      <div class="review-open-quote" aria-hidden="true">&ldquo;</div>
       <p class="review-text">What sets Diamond Lux apart is the process. A full written assessment before any work started — every defect documented, every step explained. I've used other services. This is different.</p>
       <div class="review-footer">
         <p class="review-author">Sarah K.</p>
@@ -150,7 +279,7 @@
       </div>
     </div>
     <div class="review-card">
-      <div class="review-open-quote">&ldquo;</div>
+      <div class="review-open-quote" aria-hidden="true">&ldquo;</div>
       <p class="review-text">I was sceptical that correction could make a meaningful difference on a three-year-old finish. The results changed my thinking entirely. The depth of the paint after treatment is in a different category.</p>
       <div class="review-footer">
         <p class="review-author">Daniel R.</p>
@@ -158,7 +287,7 @@
       </div>
     </div>
     <div class="review-card">
-      <div class="review-open-quote">&ldquo;</div>
+      <div class="review-open-quote" aria-hidden="true">&ldquo;</div>
       <p class="review-text">My vehicle is garaged and maintained carefully — I needed someone who would treat it the same way. Diamond Lux understood that immediately. The level of care applied to every panel was exactly what I was looking for.</p>
       <div class="review-footer">
         <p class="review-author">James W.</p>
@@ -166,7 +295,7 @@
       </div>
     </div>
     <div class="review-card">
-      <div class="review-open-quote">&ldquo;</div>
+      <div class="review-open-quote" aria-hidden="true">&ldquo;</div>
       <p class="review-text">The maintenance program has been worth every cent. The coating is maintained properly, the vehicle always looks the way it should, and the communication is clear and professional every time.</p>
       <div class="review-footer">
         <p class="review-author">Natalie F.</p>
@@ -174,7 +303,7 @@
       </div>
     </div>
     <div class="review-card">
-      <div class="review-open-quote">&ldquo;</div>
+      <div class="review-open-quote" aria-hidden="true">&ldquo;</div>
       <p class="review-text">There are detailers, and then there are people who understand vehicle preservation. This is the latter. Before and after documentation showed a transformation I genuinely did not think was possible.</p>
       <div class="review-footer">
         <p class="review-author">Chris M.</p>
@@ -218,6 +347,11 @@
     <p class="footer-sub">Bespoke Paint Correction · Vehicle Preservation</p>
   </div>
 </footer>
+
+<!-- ── STICKY MOBILE CTA ──────────────────────────────────── -->
+<div id="mob-cta-bar" aria-hidden="true">
+  <a href="contact.html">Apply for Assessment</a>
+</div>
 
 <script src="js/motion.js"></script>
 </body>

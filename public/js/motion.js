@@ -1,4 +1,4 @@
-/* Diamond Lux — Luxury Motion System v2 */
+/* Diamond Lux — Luxury Motion System v3 */
 (function () {
   'use strict';
 
@@ -41,6 +41,54 @@
     },{passive:true});
   }
 
+  /* ── HAMBURGER + MOBILE NAV ─────────────────────────────── */
+  var hamburger = document.getElementById('nav-hamburger');
+  var mobNav    = document.getElementById('mob-nav');
+  if (hamburger && mobNav) {
+    hamburger.addEventListener('click',function(){
+      var isOpen = mobNav.classList.toggle('open');
+      hamburger.classList.toggle('open',isOpen);
+      hamburger.setAttribute('aria-expanded',isOpen);
+      mobNav.setAttribute('aria-hidden',!isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobNav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        mobNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded','false');
+        mobNav.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+      });
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&mobNav.classList.contains('open')){
+        mobNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded','false');
+        mobNav.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+        hamburger.focus();
+      }
+    });
+  }
+
+  /* ── STICKY MOBILE CTA ──────────────────────────────────── */
+  var mobCtaBar = document.getElementById('mob-cta-bar');
+  if (mobCtaBar) {
+    var heroSection = document.querySelector('.hero');
+    var ctaVisible  = false;
+    window.addEventListener('scroll',function(){
+      var threshold = heroSection ? heroSection.offsetHeight * 0.7 : 300;
+      var shouldShow = window.scrollY > threshold;
+      if(shouldShow !== ctaVisible){
+        ctaVisible = shouldShow;
+        mobCtaBar.classList.toggle('visible',shouldShow);
+        mobCtaBar.setAttribute('aria-hidden',!shouldShow);
+      }
+    },{passive:true});
+  }
+
   /* ── INTERSECTION OBSERVER ──────────────────────────────── */
   if (!window.IntersectionObserver) return;
   var io = new IntersectionObserver(function(entries){
@@ -66,7 +114,10 @@
     '.cta-label','.cta-title','.cta-sub','.cta-action',
     '.faq-intro','.faq-sidebar-cta',
     '.form-title','.form-sub','.form-contact-detail','.form-grid','.form-submit',
-    '.footer-top','.footer-bottom'
+    '.footer-top','.footer-bottom',
+    '.services-home-link',
+    '.visual-proof-img','.visual-proof-pull',
+    '.process-home-header-row','.process-home-link'
   ];
   document.querySelectorAll(singles.join(',')).forEach(function(el){
     el.classList.add('dlx-reveal');io.observe(el);
@@ -75,7 +126,9 @@
   [{parent:'.science-points',child:'.science-point'},
    {parent:'.process-steps',child:'.step-row'},
    {parent:'.reviews-grid',child:'.review-card'},
-   {parent:'.faq-list',child:'.faq-item'}
+   {parent:'.faq-list',child:'.faq-item'},
+   {parent:'.services-home-grid',child:'.service-home-card'},
+   {parent:'.process-home-steps',child:'.process-home-step'}
   ].forEach(function(g){
     var p=document.querySelector(g.parent);
     if(!p)return;
