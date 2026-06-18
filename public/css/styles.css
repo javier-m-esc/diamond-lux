@@ -352,7 +352,7 @@ body.page-ready .hero-rule{opacity:1;transform:none}
 .visual-proof-duo{display:grid;grid-template-columns:1fr 1fr}
 .vp-duo-panel{position:relative;overflow:hidden}
 .vp-duo-panel+.vp-duo-panel{border-left:1px solid var(--dim)}
-.vp-duo-panel img{width:100%;display:block;opacity:0.88;transition:opacity .4s;aspect-ratio:4/3;object-fit:cover}
+.vp-duo-panel img{width:100%;height:280px;display:block;opacity:0.88;transition:opacity .4s;object-fit:cover}
 .vp-duo-panel:hover img{opacity:1}
 .vp-duo-label{position:absolute;bottom:16px;left:20px;font-family:'Archivo Narrow',sans-serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--platinum);background:rgba(8,8,8,.65);padding:5px 12px}
 .visual-proof-duo .visual-proof-caption{grid-column:1/-1}
