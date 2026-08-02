@@ -90,6 +90,34 @@
             <label class="form-label" for="vehicle">Vehicle Make, Model &amp; Year</label>
             <input type="text" id="vehicle" name="vehicle" class="form-input" placeholder="Porsche 911 GT3 2023" required>
           </div>
+          <div class="form-group datepicker" id="h-date-group">
+            <label class="form-label" id="h-date-label">Preferred Date</label>
+            <button type="button" class="form-input date-trigger" id="h-date-trigger" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="h-date-label">
+              <span id="h-date-display" class="is-placeholder">Select a date</span>
+              <span class="date-trigger-icon" aria-hidden="true">▾</span>
+            </button>
+            <input type="hidden" id="h-date" name="date">
+            <div class="datepicker-panel" id="h-date-panel" role="dialog" aria-label="Choose a preferred date" hidden>
+              <div class="datepicker-header">
+                <button type="button" class="datepicker-nav" id="dp-prev" aria-label="Previous month">←</button>
+                <span class="datepicker-month" id="dp-month-label"></span>
+                <button type="button" class="datepicker-nav" id="dp-next" aria-label="Next month">→</button>
+              </div>
+              <div class="datepicker-weekdays">
+                <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+              </div>
+              <div class="datepicker-grid" id="dp-grid"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="h-time">Preferred Time</label>
+            <select id="h-time" name="time" class="form-select" required disabled>
+              <option value="" disabled selected>Select a date first</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <p class="form-note" id="h-time-hint">Choose a date first — weekday assessments run 4:30pm–9:00pm, weekend assessments run 9:00am–3:00pm.</p>
+          </div>
           <div class="form-group full">
             <label class="form-label" for="source">How Did You Hear About Us?</label>
             <select id="source" name="source" class="form-select">
@@ -159,17 +187,186 @@ function showStatus(type, message) {
   statusEl.innerHTML = message;
   statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+/* ── Assessment hours: weekdays 4:30pm–9pm, weekends 9am–3pm ── */
+const dateInput = document.getElementById('h-date');
+const timeInput = document.getElementById('h-time');
+const timeHint  = document.getElementById('h-time-hint');
+const HOURS = {
+  weekday: { min: '16:30', max: '21:00', label: 'Weekday assessments run 4:30pm–9:00pm.' },
+  weekend: { min: '09:00', max: '15:00', label: 'Weekend assessments run 9:00am–3:00pm.' },
+};
+function hoursFor(dateStr) {
+  const day = new Date(dateStr + 'T00:00:00').getDay();
+  return (day === 0 || day === 6) ? HOURS.weekend : HOURS.weekday;
+}
+function formatTime12(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const h12 = ((h + 11) % 12) + 1;
+  return `${h12}:${pad2(m)} ${period}`;
+}
+function slotsFor(min, max) {
+  const slots = [];
+  let [h, m] = min.split(':').map(Number);
+  const [endH, endM] = max.split(':').map(Number);
+  while (h < endH || (h === endH && m <= endM)) {
+    slots.push(`${pad2(h)}:${pad2(m)}`);
+    m += 30;
+    if (m >= 60) { m -= 60; h += 1; }
+  }
+  return slots;
+}
+dateInput.addEventListener('change', () => {
+  timeInput.innerHTML = '';
+  if (!dateInput.value) {
+    timeInput.disabled = true;
+    const opt = document.createElement('option');
+    opt.value = ''; opt.disabled = true; opt.selected = true;
+    opt.textContent = 'Select a date first';
+    timeInput.appendChild(opt);
+    timeHint.textContent = 'Choose a date first — weekday assessments run 4:30pm–9:00pm, weekend assessments run 9:00am–3:00pm.';
+    return;
+  }
+  const w = hoursFor(dateInput.value);
+  const placeholder = document.createElement('option');
+  placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
+  placeholder.textContent = 'Select a time';
+  timeInput.appendChild(placeholder);
+  slotsFor(w.min, w.max).forEach((slot) => {
+    const opt = document.createElement('option');
+    opt.value = slot;
+    opt.textContent = formatTime12(slot);
+    timeInput.appendChild(opt);
+  });
+  timeInput.disabled = false;
+  timeHint.textContent = w.label;
+});
+
+/* ── Custom calendar picker ──────────────────────────────── */
+const dateTrigger  = document.getElementById('h-date-trigger');
+const dateDisplay  = document.getElementById('h-date-display');
+const dpPanel      = document.getElementById('h-date-panel');
+const dpMonthLabel = document.getElementById('dp-month-label');
+const dpGrid       = document.getElementById('dp-grid');
+const dpPrev       = document.getElementById('dp-prev');
+const dpNext       = document.getElementById('dp-next');
+const MONTH_NAMES  = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAY_NAMES    = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function pad2(n) { return String(n).padStart(2, '0'); }
+const isoOf = (y, m, d) => `${y}-${pad2(m + 1)}-${pad2(d)}`;
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+let viewYear = today.getFullYear();
+let viewMonth = today.getMonth();
+
+function renderCalendar() {
+  dpMonthLabel.textContent = `${MONTH_NAMES[viewMonth]} ${viewYear}`;
+  dpPrev.disabled = viewYear === today.getFullYear() && viewMonth === today.getMonth();
+  dpGrid.innerHTML = '';
+  const firstWeekday = (new Date(viewYear, viewMonth, 1).getDay() + 6) % 7; // Monday-first
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const daysInPrevMonth = new Date(viewYear, viewMonth, 0).getDate();
+  const todayIso = isoOf(today.getFullYear(), today.getMonth(), today.getDate());
+
+  for (let i = 0; i < 42; i++) {
+    const cellNum = i - firstWeekday + 1;
+    let cellYear = viewYear, cellMonth = viewMonth, cellDay, outside = false;
+    if (cellNum < 1) {
+      cellMonth -= 1; outside = true;
+      if (cellMonth < 0) { cellMonth = 11; cellYear -= 1; }
+      cellDay = daysInPrevMonth + cellNum;
+    } else if (cellNum > daysInMonth) {
+      cellMonth += 1; outside = true;
+      if (cellMonth > 11) { cellMonth = 0; cellYear += 1; }
+      cellDay = cellNum - daysInMonth;
+    } else {
+      cellDay = cellNum;
+    }
+    const iso = isoOf(cellYear, cellMonth, cellDay);
+    const isPast = iso < todayIso;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'dp-day';
+    btn.textContent = cellDay;
+    if (outside || isPast) {
+      btn.classList.add('dp-day--muted');
+      btn.disabled = true;
+    } else {
+      btn.addEventListener('click', () => selectDate(cellYear, cellMonth, cellDay));
+    }
+    if (iso === todayIso) btn.classList.add('dp-day--today');
+    if (iso === dateInput.value) btn.classList.add('dp-day--selected');
+    dpGrid.appendChild(btn);
+  }
+}
+
+function selectDate(y, m, d) {
+  const iso = isoOf(y, m, d);
+  dateInput.value = iso;
+  dateDisplay.textContent = `${DAY_NAMES[new Date(y, m, d).getDay()]}, ${d} ${MONTH_NAMES[m]}`;
+  dateDisplay.classList.remove('is-placeholder');
+  dateInput.dispatchEvent(new Event('change'));
+  closeCalendar();
+}
+
+function openCalendar() {
+  viewYear = today.getFullYear();
+  viewMonth = today.getMonth();
+  if (dateInput.value) {
+    const [y, m] = dateInput.value.split('-').map(Number);
+    viewYear = y; viewMonth = m - 1;
+  }
+  renderCalendar();
+  dpPanel.hidden = false;
+  dateTrigger.setAttribute('aria-expanded', 'true');
+  document.addEventListener('click', onDocClick);
+  document.addEventListener('keydown', onDocKey);
+}
+function closeCalendar() {
+  dpPanel.hidden = true;
+  dateTrigger.setAttribute('aria-expanded', 'false');
+  document.removeEventListener('click', onDocClick);
+  document.removeEventListener('keydown', onDocKey);
+}
+function onDocClick(e) {
+  if (!dpPanel.contains(e.target) && e.target !== dateTrigger) closeCalendar();
+}
+function onDocKey(e) {
+  if (e.key === 'Escape') closeCalendar();
+}
+dateTrigger.addEventListener('click', (e) => {
+  e.stopPropagation();
+  dpPanel.hidden ? openCalendar() : closeCalendar();
+});
+dpPrev.addEventListener('click', () => { viewMonth -= 1; if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; } renderCalendar(); });
+dpNext.addEventListener('click', () => { viewMonth += 1; if (viewMonth > 11) { viewMonth = 0; viewYear += 1; } renderCalendar(); });
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (!dateInput.value) {
+    showStatus('error', 'Please choose a preferred date.');
+    return;
+  }
+  const w = hoursFor(dateInput.value);
+  if (!timeInput.value || timeInput.value < w.min || timeInput.value > w.max) {
+    showStatus('error', `Please choose a time within our hours for that day. ${w.label}`);
+    return;
+  }
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
+  const notesParts = [
+    `Preferred Date: ${dateInput.value}`,
+    `Preferred Time: ${formatTime12(timeInput.value)}`,
+    form.message.value.trim() ? `Notes: ${form.message.value.trim()}` : null,
+  ].filter(Boolean).join('\n');
   const data = {
     name:    form.name.value.trim(),
     phone:   form.phone.value.trim(),
     email:   form.email.value.trim(),
     vehicle: form.vehicle.value.trim(),
     source:  form.source.value || null,
-    message: form.message.value.trim() || null,
+    message: notesParts,
   };
   const { error } = await supabase.from('contact_submissions').insert(data);
   if (error) {
