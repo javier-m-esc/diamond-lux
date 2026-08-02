@@ -361,13 +361,15 @@ form.addEventListener('submit', async (e) => {
     form.message.value.trim() ? `Notes: ${form.message.value.trim()}` : null,
   ].filter(Boolean).join('\n');
   const data = {
-    name:    form.name.value.trim(),
-    phone:   form.phone.value.trim(),
-    email:   form.email.value.trim(),
-    vehicle: form.vehicle.value.trim(),
-    service: 'Assessment Application',
-    source:  form.source.value || null,
-    message: notesParts,
+    name:           form.name.value.trim(),
+    phone:          form.phone.value.trim(),
+    email:          form.email.value.trim(),
+    vehicle:        form.vehicle.value.trim(),
+    service:        'Assessment Application',
+    source:         form.source.value || null,
+    message:        notesParts,
+    preferred_date: dateInput.value,
+    preferred_time: timeInput.value,
   };
   const { error } = await supabase.from('contact_submissions').insert(data);
   if (error) {
