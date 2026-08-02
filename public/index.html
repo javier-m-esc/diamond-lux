@@ -512,7 +512,9 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="h-time">Preferred Time</label>
-            <input type="time" id="h-time" name="time" class="form-input" required disabled>
+            <select id="h-time" name="time" class="form-select" required disabled>
+              <option value="" disabled selected>Select a date first</option>
+            </select>
           </div>
           <div class="form-group full">
             <p class="form-note" id="h-time-hint">Choose a date first — weekday assessments run 4:30pm–9:00pm, weekend assessments run 9:00am–3:00pm.</p>
@@ -593,18 +595,46 @@ function hoursFor(dateStr) {
   const day = new Date(dateStr + 'T00:00:00').getDay();
   return (day === 0 || day === 6) ? HOURS.weekend : HOURS.weekday;
 }
+function formatTime12(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const h12 = ((h + 11) % 12) + 1;
+  return `${h12}:${pad2(m)} ${period}`;
+}
+function slotsFor(min, max) {
+  const slots = [];
+  let [h, m] = min.split(':').map(Number);
+  const [endH, endM] = max.split(':').map(Number);
+  while (h < endH || (h === endH && m <= endM)) {
+    slots.push(`${pad2(h)}:${pad2(m)}`);
+    m += 30;
+    if (m >= 60) { m -= 60; h += 1; }
+  }
+  return slots;
+}
 dateInput.addEventListener('change', () => {
+  timeInput.innerHTML = '';
   if (!dateInput.value) {
     timeInput.disabled = true;
-    timeInput.value = '';
+    const opt = document.createElement('option');
+    opt.value = ''; opt.disabled = true; opt.selected = true;
+    opt.textContent = 'Select a date first';
+    timeInput.appendChild(opt);
     timeHint.textContent = 'Choose a date first — weekday assessments run 4:30pm–9:00pm, weekend assessments run 9:00am–3:00pm.';
     return;
   }
   const w = hoursFor(dateInput.value);
-  timeInput.min = w.min;
-  timeInput.max = w.max;
+  const placeholder = document.createElement('option');
+  placeholder.value = ''; placeholder.disabled = true; placeholder.selected = true;
+  placeholder.textContent = 'Select a time';
+  timeInput.appendChild(placeholder);
+  slotsFor(w.min, w.max).forEach((slot) => {
+    const opt = document.createElement('option');
+    opt.value = slot;
+    opt.textContent = formatTime12(slot);
+    timeInput.appendChild(opt);
+  });
   timeInput.disabled = false;
-  if (timeInput.value && (timeInput.value < w.min || timeInput.value > w.max)) timeInput.value = '';
   timeHint.textContent = w.label;
 });
 
@@ -724,7 +754,7 @@ form.addEventListener('submit', async (e) => {
     `Program: ${form.package.value}`,
     `Area: ${form.area.value}`,
     form.date.value ? `Preferred Date: ${form.date.value}` : null,
-    form.time.value ? `Preferred Time: ${form.time.value}` : null,
+    form.time.value ? `Preferred Time: ${formatTime12(form.time.value)}` : null,
     form.message.value.trim() ? `Notes: ${form.message.value.trim()}` : null,
   ].filter(Boolean).join('\n');
   const data = {
