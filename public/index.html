@@ -493,11 +493,14 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="h-date">Preferred Date</label>
-            <input type="date" id="h-date" name="date" class="form-input">
+            <input type="date" id="h-date" name="date" class="form-input" required>
           </div>
           <div class="form-group">
             <label class="form-label" for="h-time">Preferred Time</label>
-            <input type="time" id="h-time" name="time" class="form-input">
+            <input type="time" id="h-time" name="time" class="form-input" required disabled>
+          </div>
+          <div class="form-group full">
+            <p class="form-note" id="h-time-hint">Choose a date first — weekday assessments run 4:30pm–9:00pm, weekend assessments run 9:00am–3:00pm.</p>
           </div>
           <div class="form-group full">
             <label class="form-label" for="h-message">Vehicle Condition &amp; Notes</label>
@@ -562,8 +565,48 @@ function showStatus(type, message) {
   statusEl.innerHTML = message;
   statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+/* ── Assessment hours: weekdays 4:30pm–9pm, weekends 9am–3pm ── */
+const dateInput = document.getElementById('h-date');
+const timeInput = document.getElementById('h-time');
+const timeHint  = document.getElementById('h-time-hint');
+const HOURS = {
+  weekday: { min: '16:30', max: '21:00', label: 'Weekday assessments run 4:30pm–9:00pm.' },
+  weekend: { min: '09:00', max: '15:00', label: 'Weekend assessments run 9:00am–3:00pm.' },
+};
+function todayISO() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function hoursFor(dateStr) {
+  const day = new Date(dateStr + 'T00:00:00').getDay();
+  return (day === 0 || day === 6) ? HOURS.weekend : HOURS.weekday;
+}
+dateInput.min = todayISO();
+dateInput.addEventListener('change', () => {
+  if (!dateInput.value) {
+    timeInput.disabled = true;
+    timeInput.value = '';
+    timeHint.textContent = 'Choose a date first — weekday assessments run 4:30pm–9:00pm, weekend assessments run 9:00am–3:00pm.';
+    return;
+  }
+  const w = hoursFor(dateInput.value);
+  timeInput.min = w.min;
+  timeInput.max = w.max;
+  timeInput.disabled = false;
+  if (timeInput.value && (timeInput.value < w.min || timeInput.value > w.max)) timeInput.value = '';
+  timeHint.textContent = w.label;
+});
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (dateInput.value) {
+    const w = hoursFor(dateInput.value);
+    if (!timeInput.value || timeInput.value < w.min || timeInput.value > w.max) {
+      showStatus('error', `Please choose a time within our hours for that day. ${w.label}`);
+      return;
+    }
+  }
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
   const notesParts = [
