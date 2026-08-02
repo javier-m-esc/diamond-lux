@@ -255,6 +255,28 @@ nav.scrolled{background:rgba(10,10,10,0.96);border-bottom-color:var(--dim)}
 .submit-btn:hover{opacity:0.82}
 .form-note{font-family:'Archivo',sans-serif;font-size:12px;color:var(--muted);letter-spacing:0.03em;max-width:300px;line-height:1.6}
 
+/* ─── DATE PICKER ───────────────────────────────────────── */
+.datepicker{position:relative}
+.date-trigger{display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:var(--platinum);background:transparent}
+.date-trigger #h-date-display.is-placeholder{color:var(--muted);font-weight:300}
+.date-trigger-icon{color:var(--muted);font-size:11px;margin-left:12px;flex-shrink:0}
+.datepicker-panel{position:absolute;top:calc(100% + 12px);left:0;z-index:40;width:320px;max-width:calc(100vw - 48px);background:var(--carbon);border:1px solid var(--dim);padding:24px}
+.datepicker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.datepicker-month{font-family:'Archivo Narrow',sans-serif;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--platinum)}
+.datepicker-nav{background:none;border:1px solid var(--dim);color:var(--silver);width:28px;height:28px;cursor:pointer;font-size:12px;line-height:1;transition:border-color .3s,color .3s}
+.datepicker-nav:hover{border-color:var(--silver);color:var(--platinum)}
+.datepicker-nav:disabled{opacity:0.25;cursor:default}
+.datepicker-nav:disabled:hover{border-color:var(--dim);color:var(--silver)}
+.datepicker-weekdays{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:8px}
+.datepicker-weekdays span{font-family:'Archivo Narrow',sans-serif;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);text-align:center}
+.datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dp-day{font-family:'Archivo',sans-serif;font-size:13px;color:var(--silver);background:none;border:none;border-radius:2px;aspect-ratio:1;cursor:pointer;transition:background .3s,color .3s}
+.dp-day:hover:not(:disabled){background:rgba(255,255,255,0.06);color:var(--platinum)}
+.dp-day--muted{color:var(--dim);cursor:default}
+.dp-day--today{color:var(--platinum);border-bottom:1px solid var(--silver)}
+.dp-day--selected{background:var(--platinum);color:var(--void);border-bottom:none}
+.dp-day--selected:hover{background:var(--platinum);color:var(--void)}
+
 /* ─── FOOTER ────────────────────────────────────────────── */
 footer{background:var(--void);border-top:1px solid var(--dim);padding:0 var(--page-padding-h)}
 .footer-top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;padding:40px 0;border-bottom:1px solid var(--dim);gap:48px}
