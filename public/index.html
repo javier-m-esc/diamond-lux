@@ -500,14 +500,6 @@
             <input type="time" id="h-time" name="time" class="form-input">
           </div>
           <div class="form-group full">
-            <label class="form-label">Payment Method</label>
-            <div class="form-radio-row">
-              <label class="form-radio"><input type="radio" name="payment" value="Bank Transfer" checked><span>Bank Transfer</span></label>
-              <label class="form-radio"><input type="radio" name="payment" value="Card"><span>Card</span></label>
-              <label class="form-radio"><input type="radio" name="payment" value="Cash"><span>Cash</span></label>
-            </div>
-          </div>
-          <div class="form-group full">
             <label class="form-label" for="h-message">Vehicle Condition &amp; Notes</label>
             <textarea id="h-message" name="message" class="form-textarea" placeholder="Describe the current state of the paint — any known defects, previous corrections, or what you want to achieve."></textarea>
           </div>
@@ -579,7 +571,6 @@ form.addEventListener('submit', async (e) => {
     `Area: ${form.area.value}`,
     form.date.value ? `Preferred Date: ${form.date.value}` : null,
     form.time.value ? `Preferred Time: ${form.time.value}` : null,
-    `Payment Method: ${form.payment.value}`,
     form.message.value.trim() ? `Notes: ${form.message.value.trim()}` : null,
   ].filter(Boolean).join('\n');
   const data = {
