@@ -781,8 +781,9 @@ form.addEventListener('submit', async (e) => {
     service:        form.package.value,
     source:         'Homepage — Book a Detail',
     message:        notesParts,
-    preferred_date: dateInput.value,
-    preferred_time: timeInput.value,
+    preferred_date:     dateInput.value,
+    preferred_time:     timeInput.value,
+    preferred_datetime: `${dateInput.value}T${timeInput.value}:00`,
   };
   const { error } = await supabase.from('contact_submissions').insert(data);
   if (error) {
